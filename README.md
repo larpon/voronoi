@@ -11,4 +11,4 @@ git clone git@github.com:Larpon/voronoi.git
 ```
 
 ## Example
-`cd voronoi/examples && v run diagram.v`
+`v run ~/.vmodules/voronoi/examples/diagram.v`
