@@ -1,3 +1,6 @@
+// Copyright(C) 2021-2022 Lars Pontoppidan. All rights reserved.
+// Use of this source code is governed by an MIT license
+// that can be found in the LICENSE file.
 module main
 
 import gg
@@ -27,7 +30,7 @@ fn main() {
 	mut a := &App{
 		gg: 0
 	}
-	a.gg = gg.new_context({
+	a.gg = gg.new_context(
 		bg_color: gx.black
 		width: win_width
 		height: win_height
@@ -38,7 +41,7 @@ fn main() {
 		event_fn: event
 		user_data: a
 		init_fn: init
-	})
+	)
 	a.gg.run()
 }
 
@@ -49,10 +52,10 @@ fn init(mut a App) {
 
 	a.colors = []byte{len: colors_len}
 	for i in 0 .. colors_len {
-		a.colors[i] = byte(rand.int_in_range(0, 255))
+		a.colors[i] = byte(rand.int_in_range(0, 255) or { 0 })
 	}
-	for _ in 0 .. rand.int_in_range(1, 10) {
-		a.points << v.Point{x: rand.int_in_range(0, a.width), y: rand.int_in_range(0, a.height) }
+	for _ in 0 .. rand.int_in_range(1, 10) or { 1 } {
+		a.points << v.Point{x: rand.int_in_range(0, a.width) or { 0 }, y: rand.int_in_range(0, a.height) or { 0 }}
 	}
 	a.bounds = v.Rect{
 		min: v.Point{
@@ -96,7 +99,7 @@ fn event(e &sapp.Event, mut a App) {
 			}
 		}
 	}
-	match e.typ {
+	match e.@type {
 		.key_up {
 			if e.key_code == .c {
 				a.points.clear()
@@ -148,7 +151,7 @@ fn (a &App) draw() {
 			j = 0
 			for !isnil(e) {
 				// ci = normalize(i+j, 0, colors_len-3)
-				a.gg.draw_triangle(site.p.x, site.p.y, e.pos[0].x, e.pos[0].y, e.pos[1].x,
+				a.gg.draw_triangle_filled(site.p.x, site.p.y, e.pos[0].x, e.pos[0].y, e.pos[1].x,
 					e.pos[1].y, gx.rgb(a.colors[ci], a.colors[ci + 1], a.colors[ci + 2]))
 				e = e.next
 				j++
@@ -162,7 +165,7 @@ fn (a &App) draw() {
 		edge = C.jcv_diagram_get_next_edge(edge)
 	}
 	for p in a.points {
-		a.gg.draw_circle(p.x, p.y, 3, gx.rgb(0, 0, 0))
+		a.gg.draw_circle_filled(p.x, p.y, 3, gx.rgb(0, 0, 0))
 	}
 	dia.free()
 }
