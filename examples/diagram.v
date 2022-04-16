@@ -21,7 +21,7 @@ mut:
 	gg     &gg.Context
 	points []v.Point
 	bounds v.Rect
-	colors []byte
+	colors []u8
 	width  int
 	height int
 }
@@ -50,9 +50,9 @@ fn init(mut a App) {
 	a.width = sapp.width()
 	a.height = sapp.height()
 
-	a.colors = []byte{len: colors_len}
+	a.colors = []u8{len: colors_len}
 	for i in 0 .. colors_len {
-		a.colors[i] = byte(rand.int_in_range(0, 255) or { 0 })
+		a.colors[i] = u8(rand.int_in_range(0, 255) or { 0 })
 	}
 	for _ in 0 .. rand.int_in_range(1, 10) or { 1 } {
 		a.points << v.Point{x: rand.int_in_range(0, a.width) or { 0 }, y: rand.int_in_range(0, a.height) or { 0 }}
