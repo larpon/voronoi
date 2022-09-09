@@ -55,7 +55,10 @@ fn init(mut a App) {
 		a.colors[i] = u8(rand.int_in_range(0, 255) or { 0 })
 	}
 	for _ in 0 .. rand.int_in_range(1, 10) or { 1 } {
-		a.points << v.Point{x: rand.int_in_range(0, a.width) or { 0 }, y: rand.int_in_range(0, a.height) or { 0 }}
+		a.points << v.Point{
+			x: rand.int_in_range(0, a.width) or { 0 }
+			y: rand.int_in_range(0, a.height) or { 0 }
+		}
 	}
 	a.bounds = v.Rect{
 		min: v.Point{
@@ -136,7 +139,7 @@ fn clamp(x int, a int, b int) int {
 	return int(math.min(math.max(x, a), b))
 }
 
-[inline] [direct_array_access]
+[direct_array_access; inline]
 fn (a &App) draw() {
 	mut dia := v.Diagram{}
 	dia.generate(a.points, a.bounds)
@@ -144,15 +147,15 @@ fn (a &App) draw() {
 	mut ci := 0
 	mut j := 0
 	for i := 0; i < dia.numsites; i++ {
-		ci = clamp( normalize(i, 0, colors_len-3), 0, colors_len-3)
+		ci = clamp(normalize(i, 0, colors_len - 3), 0, colors_len - 3)
 		unsafe {
 			site := sites[i]
 			mut e := site.edges
 			j = 0
 			for !isnil(e) {
 				// ci = normalize(i+j, 0, colors_len-3)
-				a.gg.draw_triangle_filled(site.p.x, site.p.y, e.pos[0].x, e.pos[0].y, e.pos[1].x,
-					e.pos[1].y, gx.rgb(a.colors[ci], a.colors[ci + 1], a.colors[ci + 2]))
+				a.gg.draw_triangle_filled(site.p.x, site.p.y, e.pos[0].x, e.pos[0].y,
+					e.pos[1].x, e.pos[1].y, gx.rgb(a.colors[ci], a.colors[ci + 1], a.colors[ci + 2]))
 				e = e.next
 				j++
 			}

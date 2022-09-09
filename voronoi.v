@@ -73,7 +73,7 @@ pub struct Diagram {
 pub mut:
 	numsites int
 mut:
-	dgm      C.jcv_diagram
+	dgm C.jcv_diagram
 }
 
 pub fn (mut d Diagram) generate(points []Point, bounds Rect) {

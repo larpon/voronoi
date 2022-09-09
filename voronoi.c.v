@@ -5,10 +5,11 @@
 // C wrapper for https://github.com/JCash/voronoi
 module voronoi
 
-#flag -I @VROOT/c
+#flag -I @VMODROOT/c
 #flag -D JC_VORONOI_IMPLEMENTATION
 #include "jc_voronoi_clip.h"
 #include "jc_voronoi.h"
+
 [typedef]
 struct C.jcv_diagram {
 mut:
@@ -40,10 +41,10 @@ struct C.jcv_site {
 struct C.jcv_edge {
 	next &C.jcv_edge
 	// sites [2]&C.jcv_site
-	pos  [2]C.jcv_point
-	a    f32
-	b    f32
-	c    f32
+	pos [2]C.jcv_point
+	a   f32
+	b   f32
+	c   f32
 }
 
 [typedef]
