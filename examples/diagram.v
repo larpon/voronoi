@@ -80,7 +80,8 @@ fn frame(a &App) {
 }
 
 [inline]
-fn event(e &sapp.Event, mut a App) {
+fn event(e &gg.Event, ptr voidptr) {
+	mut a := unsafe { &App(ptr) }
 	mut resized := false
 	if sapp.width() != a.width {
 		a.width = sapp.width()
@@ -102,7 +103,7 @@ fn event(e &sapp.Event, mut a App) {
 			}
 		}
 	}
-	match e.@type {
+	match e.typ {
 		.key_up {
 			if e.key_code == .c {
 				a.points.clear()
