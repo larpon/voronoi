@@ -45,7 +45,7 @@ fn main() {
 	a.gg.run()
 }
 
-[inline]
+@[inline]
 fn init(mut a App) {
 	a.width = sapp.width()
 	a.height = sapp.height()
@@ -72,14 +72,14 @@ fn init(mut a App) {
 	}
 }
 
-[inline]
+@[inline]
 fn frame(a &App) {
 	a.gg.begin()
 	a.draw()
 	a.gg.end()
 }
 
-[inline]
+@[inline]
 fn event(e &gg.Event, ptr voidptr) {
 	mut a := unsafe { &App(ptr) }
 	mut resized := false
@@ -140,7 +140,7 @@ fn clamp(x int, a int, b int) int {
 	return int(math.min(math.max(x, a), b))
 }
 
-[direct_array_access; inline]
+@[direct_array_access; inline]
 fn (a &App) draw() {
 	mut dia := v.Diagram{}
 	dia.generate(a.points, a.bounds)

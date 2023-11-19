@@ -10,7 +10,7 @@ module voronoi
 #include "jc_voronoi_clip.h"
 #include "jc_voronoi.h"
 
-[typedef]
+@[typedef]
 struct C.jcv_diagram {
 mut:
 	numsites int
@@ -18,26 +18,26 @@ mut:
 	max      C.jcv_point
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_point {
 	x f32
 	y f32
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_rect {
 	min C.jcv_point
 	max C.jcv_point
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_site {
 	p     C.jcv_point
 	index int
 	edges &C.jcv_graphedge
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_edge {
 	next &C.jcv_edge
 	// sites [2]&C.jcv_site
@@ -47,11 +47,11 @@ struct C.jcv_edge {
 	c   f32
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_clipper {
 }
 
-[typedef]
+@[typedef]
 struct C.jcv_graphedge {
 	next     &C.jcv_graphedge
 	edge     &C.jcv_edge
