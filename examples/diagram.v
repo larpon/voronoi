@@ -10,15 +10,13 @@ import rand
 import sokol.sapp
 import voronoi as v
 
-const (
-	win_width  = 600
-	win_height = 600
-	colors_len = (20 * 3) // 20 different colors
-)
+const win_width = 600
+const win_height = 600
+const colors_len = (20 * 3) // 20 different colors
 
 struct App {
 mut:
-	gg     &gg.Context
+	gg     &gg.Context = unsafe { nil }
 	points []v.Point
 	bounds v.Rect
 	colors []u8
@@ -27,20 +25,17 @@ mut:
 }
 
 fn main() {
-	mut a := &App{
-		gg: 0
-	}
+	mut a := &App{}
 	a.gg = gg.new_context(
-		bg_color: gx.black
-		width: win_width
-		height: win_height
-		use_ortho: true
+		bg_color:      gx.black
+		width:         win_width
+		height:        win_height
 		create_window: true
-		window_title: 'Voronoi'
-		frame_fn: frame
-		event_fn: event
-		user_data: a
-		init_fn: init
+		window_title:  'Voronoi'
+		frame_fn:      frame
+		event_fn:      event
+		user_data:     a
+		init_fn:       init
 	)
 	a.gg.run()
 }
