@@ -4,7 +4,6 @@
 module main
 
 import gg
-import gx
 import math
 import rand
 import sokol.sapp
@@ -27,7 +26,7 @@ mut:
 fn main() {
 	mut a := &App{}
 	a.gg = gg.new_context(
-		bg_color:      gx.black
+		bg_color:      gg.black
 		width:         win_width
 		height:        win_height
 		create_window: true
@@ -151,7 +150,7 @@ fn (a &App) draw() {
 			for !isnil(e) {
 				// ci = normalize(i+j, 0, colors_len-3)
 				a.gg.draw_triangle_filled(site.p.x, site.p.y, e.pos[0].x, e.pos[0].y,
-					e.pos[1].x, e.pos[1].y, gx.rgb(a.colors[ci], a.colors[ci + 1], a.colors[ci + 2]))
+					e.pos[1].x, e.pos[1].y, gg.rgb(a.colors[ci], a.colors[ci + 1], a.colors[ci + 2]))
 				e = e.next
 				j++
 			}
@@ -159,12 +158,12 @@ fn (a &App) draw() {
 	}
 	mut edge := dia.edges()
 	for !isnil(edge) {
-		a.gg.draw_line(edge.pos[0].x, edge.pos[0].y, edge.pos[1].x, edge.pos[1].y, gx.rgb(0,
+		a.gg.draw_line(edge.pos[0].x, edge.pos[0].y, edge.pos[1].x, edge.pos[1].y, gg.rgb(0,
 			0, 0))
 		edge = C.jcv_diagram_get_next_edge(edge)
 	}
 	for p in a.points {
-		a.gg.draw_circle_filled(p.x, p.y, 3, gx.rgb(0, 0, 0))
+		a.gg.draw_circle_filled(p.x, p.y, 3, gg.rgb(0, 0, 0))
 	}
 	dia.free()
 }
